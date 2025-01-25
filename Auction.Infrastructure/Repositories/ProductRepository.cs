@@ -25,4 +25,12 @@ internal class ProductRepository : IProductRepository
         var product = await _context.Products.FindAsync(id);
         return product;
     }
+    
+    public async Task<int> CreateProduct(Product product)
+    {
+        _context.Products.Add(product);
+        await _context.SaveChangesAsync();
+
+        return product.Id;
+    }
 }

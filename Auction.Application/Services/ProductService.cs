@@ -18,6 +18,7 @@ internal class ProductService : IProductService
     public async Task<IEnumerable<ProductDto>> GetAllProducts()
     {
         _logger.LogInformation("getting all the products.");
+
         var products = await _productRepository.GetAllAsync();
         var productsDtos = products.Select(ProductDto.FromEntity);
         
@@ -27,9 +28,20 @@ internal class ProductService : IProductService
     public async Task<ProductDto?> GetProductById(int id)
     {
         _logger.LogInformation($"getting product by id: {id}");
+
         var product = await _productRepository.GetByIdAsync(id);
         var productDto = ProductDto.FromEntity(product);
 
         return productDto;
+    }
+
+    public async Task<int> CreateProduct(CreateProductDto createProductDto)
+    {
+        _logger.LogInformation("creating new product.");
+
+        var product = CreateProductDto.ToProduct(createProductDto);
+        int id = await _productRepository.CreateProduct(product);
+
+        return id;
     }
 }

@@ -6,5 +6,6 @@ namespace Auction.Application.Services
     {
         Task<IEnumerable<ProductDto>> GetAllProducts();
         Task<ProductDto?> GetProductById(int id);
+        Task<int> CreateProduct(CreateProductDto createProductDto);
     }
 }

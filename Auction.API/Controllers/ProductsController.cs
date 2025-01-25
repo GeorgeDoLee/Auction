@@ -1,4 +1,5 @@
-﻿using Auction.Application.Services;
+﻿using Auction.Application.Dtos;
+using Auction.Application.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Auction.API.Controllers;
@@ -32,5 +33,13 @@ public class ProductsController : ControllerBase
         }
 
         return Ok(product);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> CreateProduct([FromBody]CreateProductDto createProductDto)
+    {
+        var id = await _productService.CreateProduct(createProductDto);
+
+        return CreatedAtAction(nameof(GetById), new { id }, null);
     }
 }
