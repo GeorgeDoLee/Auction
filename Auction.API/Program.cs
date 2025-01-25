@@ -1,5 +1,5 @@
-using Auction.Infrastructure.Extensions;
 using Auction.Application.Extensions;
+using Auction.Infrastructure.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
