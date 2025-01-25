@@ -1,5 +1,4 @@
 using Auction.Infrastructure.Extensions;
-using Auction.Infrastructure.Seeders;
 
 var builder = WebApplication.CreateBuilder(args);
 

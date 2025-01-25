@@ -1,5 +1,4 @@
 ﻿using Auction.Infrastructure.Persistance;
-using Auction.Infrastructure.Seeders;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
