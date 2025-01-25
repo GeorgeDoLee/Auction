@@ -36,7 +36,7 @@ public class ProductsController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreateProduct([FromBody]CreateProductDto createProductDto)
+    public async Task<IActionResult> CreateProduct(CreateProductDto createProductDto)
     {
         var id = await _productService.CreateProduct(createProductDto);
 
