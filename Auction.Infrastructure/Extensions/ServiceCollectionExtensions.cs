@@ -12,7 +12,5 @@ public static class ServiceCollectionExtensions
     {
         services.AddDbContext<AuctionDbContext>(
             options => options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
-
-        services.AddScoped<IUserSeeder, UserSeeder>();
     }
 }
