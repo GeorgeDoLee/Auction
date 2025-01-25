@@ -4,8 +4,8 @@ using Microsoft.Extensions.Logging;
 
 namespace Auction.Application.Services
 {
-    internal interface IProductService
+    public interface IProductService
     {
-        Task<IEnumerable<Product>> GetAllProducts(IProductRepository productRepository, ILogger<ProductService> logger);
+        Task<IEnumerable<Product>> GetAllProducts();
     }
 }
