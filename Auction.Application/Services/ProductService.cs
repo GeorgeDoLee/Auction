@@ -1,4 +1,4 @@
-﻿using Auction.Domain.Entities;
+﻿using Auction.Application.Dtos;
 using Auction.Domain.Interfaces;
 using Microsoft.Extensions.Logging;
 
@@ -15,10 +15,21 @@ internal class ProductService : IProductService
         _logger = logger;
     }
 
-    public async Task<IEnumerable<Product>> GetAllProducts()
+    public async Task<IEnumerable<ProductDto>> GetAllProducts()
     {
         _logger.LogInformation("getting all the products.");
         var products = await _productRepository.GetAllAsync();
-        return products;
+        var productsDtos = products.Select(ProductDto.FromEntity);
+        
+        return productsDtos!;
+    }
+
+    public async Task<ProductDto?> GetProductById(int id)
+    {
+        _logger.LogInformation($"getting product by id: {id}");
+        var product = await _productRepository.GetByIdAsync(id);
+        var productDto = ProductDto.FromEntity(product);
+
+        return productDto;
     }
 }

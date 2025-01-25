@@ -1,9 +1,10 @@
-﻿using Auction.Domain.Entities;
+﻿using Auction.Application.Dtos;
 
 namespace Auction.Application.Services
 {
     public interface IProductService
     {
-        Task<IEnumerable<Product>> GetAllProducts();
+        Task<IEnumerable<ProductDto>> GetAllProducts();
+        Task<ProductDto?> GetProductById(int id);
     }
 }

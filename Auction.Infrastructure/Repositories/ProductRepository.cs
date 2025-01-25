@@ -19,4 +19,10 @@ internal class ProductRepository : IProductRepository
         var products = await _context.Products.ToListAsync();
         return products;
     }
+
+    public async Task<Product?> GetByIdAsync(int id)
+    {
+        var product = await _context.Products.FindAsync(id);
+        return product;
+    }
 }

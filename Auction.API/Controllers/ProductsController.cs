@@ -20,4 +20,17 @@ public class ProductsController : ControllerBase
         var products = await _productService.GetAllProducts();
         return Ok(products);
     }
+
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetById([FromRoute] int id)
+    {
+        var product = await _productService.GetProductById(id);
+
+        if(product == null)
+        {
+            return NotFound($"Product with id: {id} was not found.");
+        }
+
+        return Ok(product);
+    }
 }

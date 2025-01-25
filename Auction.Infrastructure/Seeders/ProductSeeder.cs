@@ -23,7 +23,6 @@ internal class ProductSeeder : IProductSeeder
     {
         var product = new Product
         {
-            Id = 1,
             UserId = 1,
             Name = "Test Product",
             Description = "Test Products Description"
