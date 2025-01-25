@@ -3,7 +3,7 @@ using Auction.Infrastructure.Persistance;
 
 namespace Auction.Infrastructure.Seeders;
 
-internal class ProductSeeder : IProductSeeder
+internal class ProductSeeder : ISeeder
 {
     private readonly AuctionDbContext _context;
 
