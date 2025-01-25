@@ -6,10 +6,19 @@ namespace Auction.Application.Services;
 
 internal class ProductService : IProductService
 {
-    public async Task<IEnumerable<Product>> GetAllProducts(IProductRepository productRepository, ILogger<ProductService> logger)
+    private readonly IProductRepository _productRepository;
+    private readonly ILogger<ProductService> _logger;
+
+    public ProductService(IProductRepository productRepository, ILogger<ProductService> logger)
     {
-        logger.LogInformation("getting all the products.");
-        var products = await productRepository.GetAllAsync();
+        _productRepository = productRepository;
+        _logger = logger;
+    }
+
+    public async Task<IEnumerable<Product>> GetAllProducts()
+    {
+        _logger.LogInformation("getting all the products.");
+        var products = await _productRepository.GetAllAsync();
         return products;
     }
 }
