@@ -1,5 +1,6 @@
 ﻿using Auction.Domain.Interfaces;
 using Auction.Infrastructure.Persistance;
+using Auction.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,6 +14,6 @@ public static class ServiceCollectionExtensions
         services.AddDbContext<AuctionDbContext>(
             options => options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
-        services.AddScoped<IProductRepository, IProductRepository>();
+        services.AddScoped<IProductRepository, ProductRepository>();
     }
 }
