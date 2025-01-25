@@ -4,8 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Auction.API.Controllers;
 
-[Route("api/[controller]")]
 [ApiController]
+[Route("api/[controller]")]
 public class ProductsController : ControllerBase
 {
     private readonly IProductService _productService;

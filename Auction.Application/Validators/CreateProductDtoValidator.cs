@@ -12,9 +12,11 @@ public class CreateProductDtoValidator : AbstractValidator<CreateProductDto>
             .WithMessage("User id is required.");
 
         RuleFor(dto => dto.Name)
-            .Length(3, 20);
+            .Length(3, 20)
+            .WithMessage("Name should be between 3 to 20 characters");
 
         RuleFor(dto => dto.Description)
-            .Length(3, 200);
+            .Length(3, 200)
+            .WithMessage("Description should be between 3 to 200 characters");
     }
 }

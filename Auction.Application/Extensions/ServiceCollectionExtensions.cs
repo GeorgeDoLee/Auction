@@ -9,7 +9,7 @@ public static class ServiceCollectionExtensions
 {
     public static void AddApplication(this IServiceCollection services)
     {
-        var appAssembly = typeof(ServiceCollectionHostedServiceExtensions).Assembly;
+        var appAssembly = typeof(ServiceCollectionExtensions).Assembly;
 
         services.AddScoped<IProductService, ProductService>();
         services.AddValidatorsFromAssembly(appAssembly)
