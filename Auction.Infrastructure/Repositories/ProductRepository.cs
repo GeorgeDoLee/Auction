@@ -33,4 +33,15 @@ internal class ProductRepository : IProductRepository
 
         return product.Id;
     }
+
+    public async Task DeleteProduct(Product product)
+    {
+        _context.Products.Remove(product);
+        await _context.SaveChangesAsync();
+    }
+
+    public async Task SaveChanges()
+    {
+        await _context.SaveChangesAsync();
+    }
 }

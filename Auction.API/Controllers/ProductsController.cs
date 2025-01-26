@@ -23,7 +23,7 @@ public class ProductsController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public async Task<IActionResult> GetById([FromRoute] int id)
+    public async Task<IActionResult> GetById([FromRoute]int id)
     {
         var product = await _productService.GetProductById(id);
 
@@ -41,5 +41,21 @@ public class ProductsController : ControllerBase
         var id = await _productService.CreateProduct(createProductDto);
 
         return CreatedAtAction(nameof(GetById), new { id }, null);
+    }
+
+    [HttpPatch("{id}")]
+    public async Task<IActionResult> UpdateProduct([FromRoute]int id, UpdateProductDto updateProductDto)
+    {
+        var productUpdated = await _productService.UpdateProduct(id, updateProductDto);
+
+        return productUpdated ? NoContent() : NotFound();
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteProduct([FromRoute]int id)
+    {
+        var productDeleted = await _productService.DeleteProduct(id);
+        
+        return productDeleted ? NoContent() : NotFound();
     }
 }

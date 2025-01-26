@@ -44,4 +44,32 @@ internal class ProductService : IProductService
 
         return id;
     }
+
+    public async Task<bool> DeleteProduct(int id)
+    {
+        _logger.LogInformation($"deleting product with id: {id}");
+
+        var product = await _productRepository.GetByIdAsync(id);
+        
+        if (product == null) return false;
+
+        await _productRepository.DeleteProduct(product);
+
+        return true;
+    }
+
+    public async Task<bool> UpdateProduct(int id, UpdateProductDto updateProductDto)
+    {
+        var product = await _productRepository.GetByIdAsync(id);
+
+        if(product == null) return false;
+
+        product.UserId = updateProductDto.UserId;
+        product.Name = updateProductDto.Name;
+        product.Description = updateProductDto.Description;
+
+        await _productRepository.SaveChanges();
+
+        return true;
+    }
 }
