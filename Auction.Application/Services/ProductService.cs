@@ -40,7 +40,7 @@ internal class ProductService : IProductService
         _logger.LogInformation("creating new product.");
 
         var product = CreateProductDto.ToProduct(createProductDto);
-        int id = await _productRepository.CreateProduct(product);
+        int id = await _productRepository.CreateProduct(product!);
 
         return id;
     }
