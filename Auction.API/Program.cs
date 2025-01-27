@@ -1,3 +1,4 @@
+using Auction.API.Middlewares;
 using Auction.Application.Extensions;
 using Auction.Infrastructure.Extensions;
 using Auction.Infrastructure.Seeders;
@@ -13,6 +14,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddScoped<ErrorHandlingMiddleware>();
+
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Host.UseSerilog((context, configuration) =>
@@ -27,13 +30,15 @@ var app = builder.Build();
 //    await seeder.SeedAsync();
 //}
 
+app.UseMiddleware<ErrorHandlingMiddleware>();
+
+app.UseSerilogRequestLogging();
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
-app.UseSerilogRequestLogging();
 
 app.UseHttpsRedirection();
 
