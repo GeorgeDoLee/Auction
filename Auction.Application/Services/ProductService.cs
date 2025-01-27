@@ -55,7 +55,6 @@ internal class ProductService : IProductService
         var product = await _productRepository.GetByIdAsync(id)
             ?? throw new NotFoundException(nameof(Product), id);
 
-        if (updateProductDto.UserId.HasValue) product.UserId = updateProductDto.UserId.Value;
         if (!string.IsNullOrEmpty(updateProductDto.Name)) product.Name = updateProductDto.Name;
         if (!string.IsNullOrEmpty(updateProductDto.Description)) product.Description = updateProductDto.Description;
 

@@ -3,7 +3,6 @@
 public class Auction
 {
     public int Id { get; set; }
-    public int UserId { get; set; }
     public int ProductId { get; set; }
     public required decimal StartingPrice { get; set; }
     public required decimal CurrentPrice { get; set; }

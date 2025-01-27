@@ -3,7 +3,6 @@
 namespace Auction.Application.Dtos;
 public class CreateProductDto
 {
-    public int UserId { get; set; }
     public required string Name { get; set; }
     public required string Description { get; set; }
 
@@ -11,7 +10,6 @@ public class CreateProductDto
     {
         return new Product
         {
-            UserId = createProductDto.UserId,
             Name = createProductDto.Name,
             Description = createProductDto.Description
         };

@@ -1,10 +1,8 @@
 ﻿using Auction.Domain.Enums;
+using Microsoft.AspNetCore.Identity;
 
 namespace Auction.Domain.Entities;
 
-public class User
+public class User : IdentityUser
 {
-    public int Id { get; set; }
-    public required string Username { get; set; }
-    public required UserRole UserRole { get; set; }
 }
