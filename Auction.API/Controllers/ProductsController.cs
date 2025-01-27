@@ -44,6 +44,8 @@ public class ProductsController : ControllerBase
     }
 
     [HttpPatch("{id}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> UpdateProduct([FromRoute]int id, UpdateProductDto updateProductDto)
     {
         var productUpdated = await _productService.UpdateProduct(id, updateProductDto);
@@ -52,6 +54,8 @@ public class ProductsController : ControllerBase
     }
 
     [HttpDelete("{id}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> DeleteProduct([FromRoute]int id)
     {
         var productDeleted = await _productService.DeleteProduct(id);
