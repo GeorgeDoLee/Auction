@@ -32,7 +32,9 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.MapGroup("api/Identity").MapIdentityApi<User>();
+app.MapGroup("api/Identity")
+    .WithTags("Identity")
+    .MapIdentityApi<User>();
 
 app.UseAuthorization();
 
