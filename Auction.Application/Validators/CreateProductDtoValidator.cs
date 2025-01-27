@@ -7,10 +7,6 @@ public class CreateProductDtoValidator : AbstractValidator<CreateProductDto>
 {
     public CreateProductDtoValidator()
     {
-        RuleFor(dto => dto.UserId)
-            .NotEmpty()
-            .WithMessage("User id is required.");
-
         RuleFor(dto => dto.Name)
             .Length(3, 20)
             .WithMessage("Name should be between 3 to 20 characters");

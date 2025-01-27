@@ -11,16 +11,4 @@ internal class AuctionDbContext : IdentityDbContext<User>
     }
 
     internal DbSet<Product> Products { get; set; }
-    internal DbSet<Domain.Entities.Auction> Auctions { get; set; }
-
-    protected override void OnModelCreating(ModelBuilder builder)
-    {
-        builder.Entity<Domain.Entities.Auction>()
-            .HasOne(a => a.Product)
-            .WithMany()
-            .HasForeignKey(a => a.ProductId)
-            .OnDelete(DeleteBehavior.Restrict);
-
-        base.OnModelCreating(builder);
-    }
 }

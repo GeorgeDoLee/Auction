@@ -7,11 +7,6 @@ public class UpdateProductDtoValidator : AbstractValidator<UpdateProductDto>
 {
     public UpdateProductDtoValidator()
     {
-        RuleFor(dto => dto.UserId)
-            .GreaterThan(0)
-            .When(dto => dto.UserId.HasValue)
-            .WithMessage("UserId must be integer greater than.");
-
         RuleFor(dto => dto.Name)
             .Length(3, 20)
             .When(dto => !string.IsNullOrEmpty(dto.Name))
