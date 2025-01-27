@@ -8,10 +8,8 @@ public class ProductDto
     public required string Name { get; set; }
     public required string Description { get; set; }
 
-    public static ProductDto? FromEntity(Product? product)
+    public static ProductDto FromEntity(Product product)
     {
-        if (product == null) return null;
-
         return new ProductDto
         {
             Id = product.Id,

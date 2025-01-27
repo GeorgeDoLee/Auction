@@ -1,4 +1,5 @@
 ﻿using Auction.Application.Dtos;
+using Auction.Domain.Exceptions;
 using Auction.Domain.Interfaces;
 using Microsoft.Extensions.Logging;
 
@@ -25,11 +26,13 @@ internal class ProductService : IProductService
         return productsDtos!;
     }
 
-    public async Task<ProductDto?> GetProductById(int id)
+    public async Task<ProductDto> GetProductById(int id)
     {
         _logger.LogInformation("getting product by id: {ProductId}", id);
 
-        var product = await _productRepository.GetByIdAsync(id);
+        var product = await _productRepository.GetByIdAsync(id) 
+            ?? throw new NotFoundException($"Product with id: {id} couldn't be found.");
+
         var productDto = ProductDto.FromEntity(product);
 
         return productDto;
@@ -45,31 +48,26 @@ internal class ProductService : IProductService
         return id;
     }
 
-    public async Task<bool> UpdateProduct(int id, UpdateProductDto updateProductDto)
+    public async Task UpdateProduct(int id, UpdateProductDto updateProductDto)
     {
         _logger.LogInformation("Updating product with id: {ProductId} with {@UpdatedProduct}", id, updateProductDto);
-        var product = await _productRepository.GetByIdAsync(id);
-
-        if(product == null) return false;
+        var product = await _productRepository.GetByIdAsync(id)
+            ?? throw new NotFoundException($"Product with id: {id} couldn't be found.");
 
         if (updateProductDto.UserId.HasValue) product.UserId = updateProductDto.UserId.Value;
         if (!string.IsNullOrEmpty(updateProductDto.Name)) product.Name = updateProductDto.Name;
         if (!string.IsNullOrEmpty(updateProductDto.Description)) product.Description = updateProductDto.Description;
 
         await _productRepository.SaveChanges();
-        return true;
     }
 
-    public async Task<bool> DeleteProduct(int id)
+    public async Task DeleteProduct(int id)
     {
         _logger.LogInformation("deleting product with id: {ProductId}", id);
 
-        var product = await _productRepository.GetByIdAsync(id);
-        
-        if (product == null) return false;
+        var product = await _productRepository.GetByIdAsync(id)
+            ?? throw new NotFoundException($"Product with id: {id} couldn't be found.");
 
         await _productRepository.DeleteProduct(product);
-
-        return true;
     }
 }
