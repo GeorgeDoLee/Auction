@@ -64,12 +64,11 @@ internal class ProductService : IProductService
 
         if(product == null) return false;
 
-        product.UserId = updateProductDto.UserId;
-        product.Name = updateProductDto.Name;
-        product.Description = updateProductDto.Description;
+        if (updateProductDto.UserId.HasValue) product.UserId = updateProductDto.UserId.Value;
+        if (!string.IsNullOrEmpty(updateProductDto.Name)) product.Name = updateProductDto.Name;
+        if (!string.IsNullOrEmpty(updateProductDto.Description)) product.Description = updateProductDto.Description;
 
         await _productRepository.SaveChanges();
-
         return true;
     }
 }
