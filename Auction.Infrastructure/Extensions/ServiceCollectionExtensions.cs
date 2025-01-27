@@ -1,4 +1,5 @@
-﻿using Auction.Domain.Interfaces;
+﻿using Auction.Domain.Entities;
+using Auction.Domain.Interfaces;
 using Auction.Infrastructure.Persistance;
 using Auction.Infrastructure.Repositories;
 using Auction.Infrastructure.Seeders;
@@ -15,9 +16,11 @@ public static class ServiceCollectionExtensions
         services.AddDbContext<AuctionDbContext>(
             options => options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
+        services.AddIdentityApiEndpoints<User>()
+            .AddEntityFrameworkStores<AuctionDbContext>();
+
         services.AddScoped<IProductRepository, ProductRepository>();
         services.AddScoped<ISeeder, ProductSeeder>();
-        services.AddScoped<ISeeder, UserSeeder>();
         services.AddScoped<DatabaseSeeder>();
     }
 }
