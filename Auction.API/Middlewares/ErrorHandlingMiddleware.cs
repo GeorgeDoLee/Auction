@@ -1,4 +1,6 @@
-﻿namespace Auction.API.Middlewares;
+﻿using Auction.Domain.Exceptions;
+
+namespace Auction.API.Middlewares;
 
 public class ErrorHandlingMiddleware : IMiddleware
 {
@@ -13,6 +15,13 @@ public class ErrorHandlingMiddleware : IMiddleware
         try
         {
             await next.Invoke(context);
+        }
+        catch (NotFoundException notFound)
+        {
+            _logger.LogWarning(notFound, notFound.Message);
+
+            context.Response.StatusCode = 404;
+            await context.Response.WriteAsync(notFound.Message);
         }
         catch (Exception ex)
         {

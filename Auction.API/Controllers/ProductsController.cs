@@ -19,6 +19,7 @@ public class ProductsController : ControllerBase
     public async Task<ActionResult<IEnumerable<ProductDto>>> GetAll()
     {
         var products = await _productService.GetAllProducts();
+
         return Ok(products);
     }
 
@@ -26,11 +27,6 @@ public class ProductsController : ControllerBase
     public async Task<ActionResult<ProductDto>> GetById([FromRoute]int id)
     {
         var product = await _productService.GetProductById(id);
-
-        if(product == null)
-        {
-            return NotFound($"Product with id: {id} was not found.");
-        }
 
         return Ok(product);
     }
@@ -48,9 +44,9 @@ public class ProductsController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> UpdateProduct([FromRoute]int id, UpdateProductDto updateProductDto)
     {
-        var productUpdated = await _productService.UpdateProduct(id, updateProductDto);
+        await _productService.UpdateProduct(id, updateProductDto);
 
-        return productUpdated ? NoContent() : NotFound();
+        return NoContent();
     }
 
     [HttpDelete("{id}")]
@@ -58,8 +54,8 @@ public class ProductsController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> DeleteProduct([FromRoute]int id)
     {
-        var productDeleted = await _productService.DeleteProduct(id);
-        
-        return productDeleted ? NoContent() : NotFound();
+        await _productService.DeleteProduct(id);
+
+        return NoContent();
     }
 }
