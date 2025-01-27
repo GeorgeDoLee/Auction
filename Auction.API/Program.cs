@@ -21,6 +21,17 @@ builder.Services.AddSwaggerGen(c =>
         Type = SecuritySchemeType.Http,
         Scheme = "Bearer"
     });
+
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "bearerAuth" }
+            },
+            []
+        }
+    });
 });
 
 builder.Services.AddScoped<ErrorHandlingMiddleware>();
