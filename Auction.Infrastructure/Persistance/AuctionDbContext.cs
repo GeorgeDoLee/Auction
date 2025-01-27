@@ -15,22 +15,10 @@ internal class AuctionDbContext : IdentityDbContext<User>
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
-        builder.Entity<Product>()
-            .HasOne(p => p.User)
-            .WithMany()
-            .HasForeignKey(p => p.UserId)
-            .OnDelete(DeleteBehavior.Restrict);
-
         builder.Entity<Domain.Entities.Auction>()
             .HasOne(a => a.Product)
             .WithMany()
             .HasForeignKey(a => a.ProductId)
-            .OnDelete(DeleteBehavior.Restrict);
-
-        builder.Entity<Domain.Entities.Auction>()
-            .HasOne(a => a.User)
-            .WithMany()
-            .HasForeignKey(a => a.UserId)
             .OnDelete(DeleteBehavior.Restrict);
 
         base.OnModelCreating(builder);
