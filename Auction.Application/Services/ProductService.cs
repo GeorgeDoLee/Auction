@@ -1,4 +1,5 @@
 ﻿using Auction.Application.Dtos;
+using Auction.Domain.Entities;
 using Auction.Domain.Exceptions;
 using Auction.Domain.Interfaces;
 using Microsoft.Extensions.Logging;
@@ -31,7 +32,7 @@ internal class ProductService : IProductService
         _logger.LogInformation("getting product by id: {ProductId}", id);
 
         var product = await _productRepository.GetByIdAsync(id) 
-            ?? throw new NotFoundException($"Product with id: {id} couldn't be found.");
+            ?? throw new NotFoundException(nameof(Product), id);
 
         var productDto = ProductDto.FromEntity(product);
 
@@ -52,7 +53,7 @@ internal class ProductService : IProductService
     {
         _logger.LogInformation("Updating product with id: {ProductId} with {@UpdatedProduct}", id, updateProductDto);
         var product = await _productRepository.GetByIdAsync(id)
-            ?? throw new NotFoundException($"Product with id: {id} couldn't be found.");
+            ?? throw new NotFoundException(nameof(Product), id);
 
         if (updateProductDto.UserId.HasValue) product.UserId = updateProductDto.UserId.Value;
         if (!string.IsNullOrEmpty(updateProductDto.Name)) product.Name = updateProductDto.Name;
@@ -66,7 +67,7 @@ internal class ProductService : IProductService
         _logger.LogInformation("deleting product with id: {ProductId}", id);
 
         var product = await _productRepository.GetByIdAsync(id)
-            ?? throw new NotFoundException($"Product with id: {id} couldn't be found.");
+            ?? throw new NotFoundException(nameof(Product), id);
 
         await _productRepository.DeleteProduct(product);
     }
