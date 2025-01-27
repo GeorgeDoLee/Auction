@@ -3,6 +3,7 @@ using Auction.Application.Extensions;
 using Auction.Domain.Entities;
 using Auction.Infrastructure.Extensions;
 using Auction.Infrastructure.Seeders;
+using Microsoft.OpenApi.Models;
 using Serilog;
 using Serilog.Configuration;
 using Serilog.Core;
@@ -13,7 +14,14 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.AddSecurityDefinition("bearerAuth", new OpenApiSecurityScheme
+    {
+        Type = SecuritySchemeType.Http,
+        Scheme = "Bearer"
+    });
+});
 
 builder.Services.AddScoped<ErrorHandlingMiddleware>();
 builder.Services.AddScoped<RequestTimeLoggingMiddleware>();
@@ -42,7 +50,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
 
 app.UseHttpsRedirection();
 
