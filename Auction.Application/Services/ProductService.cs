@@ -27,7 +27,7 @@ internal class ProductService : IProductService
 
     public async Task<ProductDto?> GetProductById(int id)
     {
-        _logger.LogInformation($"getting product by id: {id}");
+        _logger.LogInformation("getting product by id: {ProductId}", id);
 
         var product = await _productRepository.GetByIdAsync(id);
         var productDto = ProductDto.FromEntity(product);
@@ -37,7 +37,7 @@ internal class ProductService : IProductService
 
     public async Task<int> CreateProduct(CreateProductDto createProductDto)
     {
-        _logger.LogInformation("creating new product.");
+        _logger.LogInformation("creating new product. {@CreatedProduct}", createProductDto);
 
         var product = CreateProductDto.ToProduct(createProductDto);
         int id = await _productRepository.CreateProduct(product!);
@@ -45,21 +45,9 @@ internal class ProductService : IProductService
         return id;
     }
 
-    public async Task<bool> DeleteProduct(int id)
-    {
-        _logger.LogInformation($"deleting product with id: {id}");
-
-        var product = await _productRepository.GetByIdAsync(id);
-        
-        if (product == null) return false;
-
-        await _productRepository.DeleteProduct(product);
-
-        return true;
-    }
-
     public async Task<bool> UpdateProduct(int id, UpdateProductDto updateProductDto)
     {
+        _logger.LogInformation("Updating product with id: {ProductId} with {@UpdatedProduct}", id, updateProductDto);
         var product = await _productRepository.GetByIdAsync(id);
 
         if(product == null) return false;
@@ -69,6 +57,19 @@ internal class ProductService : IProductService
         if (!string.IsNullOrEmpty(updateProductDto.Description)) product.Description = updateProductDto.Description;
 
         await _productRepository.SaveChanges();
+        return true;
+    }
+
+    public async Task<bool> DeleteProduct(int id)
+    {
+        _logger.LogInformation("deleting product with id: {ProductId}", id);
+
+        var product = await _productRepository.GetByIdAsync(id);
+        
+        if (product == null) return false;
+
+        await _productRepository.DeleteProduct(product);
+
         return true;
     }
 }
