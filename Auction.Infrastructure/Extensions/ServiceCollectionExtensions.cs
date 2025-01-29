@@ -21,6 +21,7 @@ public static class ServiceCollectionExtensions
 
         services.AddScoped<IProductRepository, ProductRepository>();
         services.AddScoped<ISeeder, ProductSeeder>();
+        services.AddScoped<ISeeder, RolesSeeder>();
         services.AddScoped<DatabaseSeeder>();
     }
 }
