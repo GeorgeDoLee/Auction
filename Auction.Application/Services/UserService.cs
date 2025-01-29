@@ -32,4 +32,17 @@ internal class UserService : IUserService
 
         await _userManager.AddToRoleAsync(user, role.Name!);
     }
+
+    public async Task UnassignUserRole(UnassignUserRoleDto unassignUserRoleDto)
+    {
+        _logger.LogInformation("Unassigning user role: {@UnassignUserRoleDto}", unassignUserRoleDto);
+
+        var user = await _userManager.FindByEmailAsync(unassignUserRoleDto.UserEmail)
+            ?? throw new NotFoundException(nameof(User), unassignUserRoleDto.UserEmail);
+
+        var role = await _roleManager.FindByNameAsync(unassignUserRoleDto.RoleName)
+            ?? throw new NotFoundException(nameof(IdentityRole), unassignUserRoleDto.RoleName);
+
+        await _userManager.RemoveFromRoleAsync(user, role.Name!);
+    }
 }

@@ -23,4 +23,12 @@ public class IdentityController : ControllerBase
         await _userService.AssignUserRole(assignUserRoleDto);
         return NoContent();
     }
+
+    [HttpDelete("userRole")]
+    [Authorize(Roles = UserRoles.Admin)]
+    public async Task<IActionResult> UnassignUserRole(UnassignUserRoleDto unassignUserRoleDto)
+    { 
+        await _userService.UnassignUserRole(unassignUserRoleDto);
+        return NoContent();
+    }
 }
