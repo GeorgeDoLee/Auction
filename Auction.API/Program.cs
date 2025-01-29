@@ -3,6 +3,7 @@ using Auction.API.Middlewares;
 using Auction.Application.Extensions;
 using Auction.Domain.Entities;
 using Auction.Infrastructure.Extensions;
+using Auction.Infrastructure.Seeders;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);

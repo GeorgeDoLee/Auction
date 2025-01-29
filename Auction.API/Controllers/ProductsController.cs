@@ -1,5 +1,7 @@
 ﻿using Auction.Application.Dtos;
 using Auction.Application.Services;
+using Auction.Domain.Constants;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Auction.API.Controllers;
@@ -32,6 +34,7 @@ public class ProductsController : ControllerBase
     }
 
     [HttpPost]
+    [Authorize(Roles = UserRoles.Admin)]
     public async Task<IActionResult> CreateProduct(CreateProductDto createProductDto)
     {
         var id = await _productService.CreateProduct(createProductDto);
@@ -40,6 +43,7 @@ public class ProductsController : ControllerBase
     }
 
     [HttpPatch("{id}")]
+    [Authorize(Roles = UserRoles.Admin)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> UpdateProduct([FromRoute]int id, UpdateProductDto updateProductDto)
@@ -50,6 +54,7 @@ public class ProductsController : ControllerBase
     }
 
     [HttpDelete("{id}")]
+    [Authorize(Roles = UserRoles.Admin)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> DeleteProduct([FromRoute]int id)

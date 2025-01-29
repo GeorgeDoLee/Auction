@@ -3,6 +3,7 @@ using Auction.Domain.Interfaces;
 using Auction.Infrastructure.Persistance;
 using Auction.Infrastructure.Repositories;
 using Auction.Infrastructure.Seeders;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,6 +18,7 @@ public static class ServiceCollectionExtensions
             options => options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
         services.AddIdentityApiEndpoints<User>()
+            .AddRoles<IdentityRole>()
             .AddEntityFrameworkStores<AuctionDbContext>();
 
         services.AddScoped<IProductRepository, ProductRepository>();
