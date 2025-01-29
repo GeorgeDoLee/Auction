@@ -32,7 +32,7 @@ internal class ProductService : IProductService
         _logger.LogInformation("getting product by id: {ProductId}", id);
 
         var product = await _productRepository.GetByIdAsync(id) 
-            ?? throw new NotFoundException(nameof(Product), id);
+            ?? throw new NotFoundException(nameof(Product), id.ToString());
 
         var productDto = ProductDto.FromEntity(product);
 
@@ -53,7 +53,7 @@ internal class ProductService : IProductService
     {
         _logger.LogInformation("Updating product with id: {ProductId} with {@UpdatedProduct}", id, updateProductDto);
         var product = await _productRepository.GetByIdAsync(id)
-            ?? throw new NotFoundException(nameof(Product), id);
+            ?? throw new NotFoundException(nameof(Product), id.ToString());
 
         if (!string.IsNullOrEmpty(updateProductDto.Name)) product.Name = updateProductDto.Name;
         if (!string.IsNullOrEmpty(updateProductDto.Description)) product.Description = updateProductDto.Description;
@@ -66,7 +66,7 @@ internal class ProductService : IProductService
         _logger.LogInformation("deleting product with id: {ProductId}", id);
 
         var product = await _productRepository.GetByIdAsync(id)
-            ?? throw new NotFoundException(nameof(Product), id);
+            ?? throw new NotFoundException(nameof(Product), id.ToString());
 
         await _productRepository.DeleteProduct(product);
     }
