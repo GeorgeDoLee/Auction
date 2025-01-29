@@ -12,6 +12,8 @@ public static class ServiceCollectionExtensions
         var appAssembly = typeof(ServiceCollectionExtensions).Assembly;
 
         services.AddScoped<IProductService, ProductService>();
+        services.AddScoped<IUserService, UserService>();
+
         services.AddValidatorsFromAssembly(appAssembly)
             .AddFluentValidationAutoValidation();
     }
