@@ -4,10 +4,10 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Auction.Infrastructure.Seeders;
 
-internal class RolesSeeder : ISeeder
+internal class RoleSeeder : ISeeder
 {
     private readonly AuctionDbContext _context;
-    public RolesSeeder(AuctionDbContext context)
+    public RoleSeeder(AuctionDbContext context)
     {
         _context = context;
     }
@@ -23,8 +23,14 @@ internal class RolesSeeder : ISeeder
     {
         List<IdentityRole> roles =
             [
-                new (UserRoles.User),
+                new (UserRoles.User)
+                {
+                    NormalizedName = UserRoles.User.ToUpper()
+                },
                 new (UserRoles.Admin)
+                {
+                    NormalizedName = UserRoles.Admin.ToUpper()
+                }
             ];
 
         return roles;
