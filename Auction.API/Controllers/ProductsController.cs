@@ -1,6 +1,7 @@
 ﻿using Auction.Application.Dtos;
 using Auction.Application.Services;
 using Auction.Domain.Constants;
+using Auction.Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,7 +19,7 @@ public class ProductsController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<ProductDto>>> GetAll()
+    public async Task<ActionResult<IEnumerable<Product>>> GetAll()
     {
         var products = await _productService.GetAllProducts();
 
@@ -26,31 +27,11 @@ public class ProductsController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<ProductDto>> GetById([FromRoute]int id)
+    public async Task<ActionResult<Product>> GetById([FromRoute]int id)
     {
         var product = await _productService.GetProductById(id);
 
         return Ok(product);
-    }
-
-    [HttpPost]
-    [Authorize(Roles = UserRoles.Admin)]
-    public async Task<IActionResult> CreateProduct(CreateProductDto createProductDto)
-    {
-        var id = await _productService.CreateProduct(createProductDto);
-
-        return CreatedAtAction(nameof(GetById), new { id }, null);
-    }
-
-    [HttpPatch("{id}")]
-    [Authorize(Roles = UserRoles.Admin)]
-    [ProducesResponseType(StatusCodes.Status204NoContent)]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> UpdateProduct([FromRoute]int id, UpdateProductDto updateProductDto)
-    {
-        await _productService.UpdateProduct(id, updateProductDto);
-
-        return NoContent();
     }
 
     [HttpDelete("{id}")]

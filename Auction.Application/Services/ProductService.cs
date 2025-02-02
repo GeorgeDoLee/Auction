@@ -1,5 +1,4 @@
-﻿using Auction.Application.Dtos;
-using Auction.Domain.Entities;
+﻿using Auction.Domain.Entities;
 using Auction.Domain.Exceptions;
 using Auction.Domain.Interfaces;
 using Microsoft.Extensions.Logging;
@@ -17,48 +16,23 @@ internal class ProductService : IProductService
         _logger = logger;
     }
 
-    public async Task<IEnumerable<ProductDto>> GetAllProducts()
+    public async Task<IEnumerable<Product>> GetAllProducts()
     {
         _logger.LogInformation("getting all the products.");
 
         var products = await _productRepository.GetAllAsync();
-        var productsDtos = products.Select(ProductDto.FromEntity);
         
-        return productsDtos!;
+        return products;
     }
 
-    public async Task<ProductDto> GetProductById(int id)
+    public async Task<Product> GetProductById(int id)
     {
         _logger.LogInformation("getting product by id: {ProductId}", id);
 
         var product = await _productRepository.GetByIdAsync(id) 
             ?? throw new NotFoundException(nameof(Product), id.ToString());
 
-        var productDto = ProductDto.FromEntity(product);
-
-        return productDto;
-    }
-
-    public async Task<int> CreateProduct(CreateProductDto createProductDto)
-    {
-        _logger.LogInformation("creating new product. {@CreatedProduct}", createProductDto);
-
-        var product = CreateProductDto.ToProduct(createProductDto);
-        int id = await _productRepository.CreateProduct(product!);
-
-        return id;
-    }
-
-    public async Task UpdateProduct(int id, UpdateProductDto updateProductDto)
-    {
-        _logger.LogInformation("Updating product with id: {ProductId} with {@UpdatedProduct}", id, updateProductDto);
-        var product = await _productRepository.GetByIdAsync(id)
-            ?? throw new NotFoundException(nameof(Product), id.ToString());
-
-        if (!string.IsNullOrEmpty(updateProductDto.Name)) product.Name = updateProductDto.Name;
-        if (!string.IsNullOrEmpty(updateProductDto.Description)) product.Description = updateProductDto.Description;
-
-        await _productRepository.SaveChanges();
+        return product;
     }
 
     public async Task DeleteProduct(int id)
