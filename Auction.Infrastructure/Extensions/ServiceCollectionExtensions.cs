@@ -18,7 +18,7 @@ public static class ServiceCollectionExtensions
             options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"))
         );
 
-        services.AddScoped<IProductRepository, ProductRepository>();
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddScoped<ISeeder, ProductSeeder>();
         services.AddScoped<DatabaseSeeder>();
     }
