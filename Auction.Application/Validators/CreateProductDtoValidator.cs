@@ -1,9 +1,9 @@
-﻿using Auction.Application.Dtos;
+﻿using Auction.Domain.Entities;
 using FluentValidation;
 
 namespace Auction.Application.Validators;
 
-public class CreateProductDtoValidator : AbstractValidator<CreateProductDto>
+public class CreateProductDtoValidator : AbstractValidator<Product>
 {
     public CreateProductDtoValidator()
     {
