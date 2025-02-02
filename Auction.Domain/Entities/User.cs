@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿namespace Auction.Domain.Entities;
 
-namespace Auction.Domain.Entities;
-
-public class User : IdentityUser
+public class User
 {
+    public int Id { get; set; }
+    public required string Name { get; set; }
 }

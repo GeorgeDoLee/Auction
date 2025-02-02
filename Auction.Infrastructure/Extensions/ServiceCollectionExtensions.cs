@@ -14,16 +14,12 @@ public static class ServiceCollectionExtensions
 {
     public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddDbContext<AuctionDbContext>(
-            options => options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
-
-        services.AddIdentityApiEndpoints<User>()
-            .AddRoles<IdentityRole>()
-            .AddEntityFrameworkStores<AuctionDbContext>();
+        services.AddDbContext<AuctionDbContext>(options =>
+            options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"))
+        );
 
         services.AddScoped<IProductRepository, ProductRepository>();
         services.AddScoped<ISeeder, ProductSeeder>();
-        services.AddScoped<ISeeder, RoleSeeder>();
         services.AddScoped<DatabaseSeeder>();
     }
 }

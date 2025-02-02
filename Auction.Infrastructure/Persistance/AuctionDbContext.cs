@@ -1,10 +1,9 @@
 ﻿using Auction.Domain.Entities;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Auction.Infrastructure.Persistance;
 
-internal class AuctionDbContext : IdentityDbContext<User>
+internal class AuctionDbContext : DbContext
 {
     public AuctionDbContext(DbContextOptions<AuctionDbContext> options) : base(options) { }
 
@@ -15,6 +14,7 @@ internal class AuctionDbContext : IdentityDbContext<User>
     internal DbSet<Domain.Entities.Auction> Auctions { get; set; }
     internal DbSet<Bid> Bids { get; set; }
     internal DbSet<Match> Matches { get; set; }
+    internal DbSet<User> Users { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
