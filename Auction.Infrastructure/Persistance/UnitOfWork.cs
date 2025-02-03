@@ -1,5 +1,4 @@
-﻿using Auction.Domain.Entities;
-using Auction.Domain.Interfaces;
+﻿using Auction.Domain.Interfaces;
 using Auction.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,6 +10,7 @@ internal class UnitOfWork : IUnitOfWork
 
     public IProductRepository Products { get; }
     public ISportRepository Sports {  get; }
+    public ILeagueRepository Leagues {  get; }
 
     public UnitOfWork(AuctionDbContext context)
     {
@@ -18,6 +18,7 @@ internal class UnitOfWork : IUnitOfWork
 
         Products = new ProductRepository(context);
         Sports = new SportRepository(context);
+        Leagues = new LeagueRepository(context);
     }
 
     public async Task Complete()

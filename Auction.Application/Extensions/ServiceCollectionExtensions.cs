@@ -13,6 +13,7 @@ public static class ServiceCollectionExtensions
 
         services.AddScoped<IProductService, ProductService>();
         services.AddScoped<ISportService, SportService>();
+        services.AddScoped<ILeagueService, LeagueService>();
 
         services.AddValidatorsFromAssembly(appAssembly)
             .AddFluentValidationAutoValidation();
