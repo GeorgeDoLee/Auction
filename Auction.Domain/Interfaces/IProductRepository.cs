@@ -2,11 +2,6 @@
 
 namespace Auction.Domain.Interfaces;
 
-public interface IProductRepository
+public interface IProductRepository : IRepository<Product>
 {
-    Task<IEnumerable<Product>> GetAllAsync();
-    Task<Product?> GetByIdAsync(int id);
-    Task<int> CreateProduct(Product product);
-    Task DeleteProduct(Product product);
-    Task SaveChanges();
 }

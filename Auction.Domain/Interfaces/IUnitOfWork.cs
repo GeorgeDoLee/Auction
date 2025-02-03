@@ -4,7 +4,7 @@ namespace Auction.Domain.Interfaces
 {
     public interface IUnitOfWork : IDisposable
     {
-        IRepository<Product> Products { get; }
+        IProductRepository Products { get; }
 
         Task Complete();
     }

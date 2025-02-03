@@ -9,13 +9,13 @@ internal class UnitOfWork : IUnitOfWork
 {
     private readonly DbContext _context;
 
-    public IRepository<Product> Products { get; }
+    public IProductRepository Products { get; }
 
     public UnitOfWork(AuctionDbContext context)
     {
         _context = context;
 
-        Products = new Repository<Product>(context);
+        Products = new ProductRepository(context);
     }
 
     public async Task Complete()
