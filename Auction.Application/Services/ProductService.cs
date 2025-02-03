@@ -21,7 +21,7 @@ internal class ProductService : IProductService
         _logger.LogInformation("getting all the products.");
 
         var products = await _unitOfWork.Products.GetAllAsync();
-        
+
         return products;
     }
 
@@ -29,7 +29,7 @@ internal class ProductService : IProductService
     {
         _logger.LogInformation("getting product by id: {ProductId}", id);
 
-        var product = await _unitOfWork.Products.GetAsync(id) 
+        var product = await _unitOfWork.Products.GetAsync(id)
             ?? throw new NotFoundException(nameof(Product), id.ToString());
 
         return product;

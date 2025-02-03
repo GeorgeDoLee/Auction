@@ -6,31 +6,31 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Auction.API.Controllers;
 
-[ApiController]
 [Route("api/[controller]")]
-public class ProductsController : ControllerBase
+[ApiController]
+public class SportsController : ControllerBase
 {
-    private readonly IProductService _productService;
+    private readonly ISportService _sportService;
 
-    public ProductsController(IProductService productService)
+    public SportsController(ISportService sportService)
     {
-        _productService = productService;
+        _sportService = sportService;
     }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Product>>> GetAll()
+    public async Task<ActionResult<IEnumerable<Sport>>> GetAll()
     {
-        var products = await _productService.GetAllProducts();
+        var sports = await _sportService.GetAllSports();
 
-        return Ok(products);
+        return Ok(sports);
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<Product>> GetById([FromRoute] int id)
+    public async Task<ActionResult<Sport>> GetById([FromRoute] int id)
     {
-        var product = await _productService.GetProductById(id);
+        var sport = await _sportService.GetSportById(id);
 
-        return Ok(product);
+        return Ok(sport);
     }
 
     [HttpDelete("{id}")]
@@ -39,7 +39,7 @@ public class ProductsController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Delete([FromRoute] int id)
     {
-        await _productService.DeleteProduct(id);
+        await _sportService.DeleteSport(id);
 
         return NoContent();
     }

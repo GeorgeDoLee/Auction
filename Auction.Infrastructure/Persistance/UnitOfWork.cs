@@ -10,12 +10,14 @@ internal class UnitOfWork : IUnitOfWork
     private readonly DbContext _context;
 
     public IProductRepository Products { get; }
+    public ISportRepository Sports {  get; }
 
     public UnitOfWork(AuctionDbContext context)
     {
         _context = context;
 
         Products = new ProductRepository(context);
+        Sports = new SportRepository(context);
     }
 
     public async Task Complete()

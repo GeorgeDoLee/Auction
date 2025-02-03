@@ -1,10 +1,9 @@
-﻿using Auction.Domain.Entities;
-
-namespace Auction.Domain.Interfaces;
+﻿namespace Auction.Domain.Interfaces;
 
 public interface IUnitOfWork : IDisposable
 {
     IProductRepository Products { get; }
+    ISportRepository Sports { get; }
 
     Task Complete();
 }
